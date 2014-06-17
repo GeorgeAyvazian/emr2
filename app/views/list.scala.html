@@ -1,0 +1,20 @@
+@(patients: List[Patient])(implicit flash: Flash, lang: Lang)
+
+    @main(Messages("application.name")) {
+        <dl class="products">
+        @for(patient <- patients) {
+            <dt>
+                <a href="@controllers.routes.Patients.show(patient.pin)">
+                @patient.pin
+                </a>
+            </dt>
+            <dd>@patient.lastName, @patient.firstName</dd>
+        }
+        </dl>
+
+        <p>
+            <a href="@controllers.routes.Patients.newPatient()">
+                <i class="icon-plus"></i>@Messages("patients.new.command")
+            </a>
+        </p>
+    }

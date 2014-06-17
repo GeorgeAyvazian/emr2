@@ -1,0 +1,18 @@
+@(patientForm: Form[Patient])(implicit flash: Flash, lang: Lang)
+@import views.html.helper.twitterBootstrap._
+@main(Messages("patients.form")) {
+    <h2>@Messages("patients.form")</h2>
+    @helper.form(action = routes.Patients.save()) {
+        <fieldset>
+            <legend>
+            @Messages("patients.details", Messages("patients.new"))
+            </legend>
+            @helper.inputText(patientForm("pin"))
+            @helper.inputText(patientForm("firstName"))
+            @helper.inputText(patientForm("lastName"))
+        </fieldset>
+        <p>
+            <input type="submit" class="btn btn-primary" value='@Messages("patients.new.submit")'>
+        </p>
+    }
+}

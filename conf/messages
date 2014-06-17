@@ -1,0 +1,13 @@
+application.name=MedFast
+patients.details=Patient Details {0} {1}
+pin=Patient Identification Number
+name=Name
+description=Description
+patient.details=Patient: {0}
+patients.form=Patient details
+patients.new=(new)
+patients.list.navigation=View Patients
+patients.new.command=New
+patients.new.submit=Add
+patients.new.success=Successfully added product {0}
+validation.errors=Please correct the errors in the form
