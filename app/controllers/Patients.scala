@@ -2,7 +2,7 @@ package controllers
 
 import models.Patient
 import play.api.data.Form
-import play.api.data.Forms.{longNumber, mapping, nonEmptyText}
+import play.api.data.Forms.{mapping, nonEmptyText}
 import play.api.i18n.Messages
 import play.api.mvc.{Action, Controller, Flash}
 
@@ -22,11 +22,10 @@ object Patients extends Controller {
 
   private val patientForm: Form[Patient] = Form(
     mapping(
-      "pin" -> longNumber.verifying("validation.pin.duplicate", Patient.findByPin(_).isEmpty),
       "firstName" -> nonEmptyText,
       "lastName" -> nonEmptyText
     )
-      (Patient.apply)(Patient.unapply)
+      ((_1, _2)=>new Patient)((p:Patient) => Option(p.firstName, p.lastName))
   )
 
   def save = Action { implicit request =>

@@ -1,13 +1,26 @@
 package models
 
-import play.api.libs.json.Json
+import javax.persistence._
 
-case class Patient(pin: Long, firstName: String, lastName: String)
+@Entity
+@Table(name = "patients")
+class Patient() {
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  var pin: Long = _
+
+  var firstName: String = _
+  var lastName: String = _
+}
 
 object Patient {
 
-  val patient1 = Patient(143L, "john", "doe")
-  val patient2 = Patient(141L, "jane", "doe")
+  val patient1 = new Patient
+  patient1.firstName = "John"
+  patient1.lastName = "doe"
+  val patient2 = new Patient
+  patient2.firstName = "Jane"
+  patient2.lastName = "doe"
 
   var patients = collection.mutable.Set[Patient](
     patient1,
@@ -22,5 +35,4 @@ object Patient {
     patients += patient
   }
 
-  implicit val writer = Json.writes[Patient]
 }

@@ -6,6 +6,7 @@ version := "1.0"
 
 libraryDependencies := Seq[ModuleID](
   jdbc,
+  javaJpa,
   "postgresql" % "postgresql" % "9.1-901.jdbc4",
   "org.hibernate" % "hibernate-entitymanager" % "4.1.9.Final", //,
   "org.webjars" %% "webjars-play" % "2.2.1",
