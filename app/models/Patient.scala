@@ -1,8 +1,13 @@
 package models
 
+import java.util
 import javax.persistence._
 
 import play.api.libs.json.Json
+import play.db.jpa.JPA
+import play.libs.F.Callback0
+
+import scala.collection.mutable
 
 @Entity
 @Table(name = "patients")
@@ -33,4 +38,18 @@ object Patient {
   }
 
   implicit val writer = Json.writes[Patient]
+  def find(searchTerm: Any):mutable.Buffer[Patient] = {
+  import scala.collection.JavaConversions._
+    val list: java.util.List[Patient] = new util.ArrayList[Patient]()
+    def x: Callback0 = new Callback0 {
+      override def invoke(): Unit = {
+        val createQuery: Query = JPA.em().createQuery("from Patient where firstName like '%"+searchTerm+"%'")
+        for(i<- createQuery.getResultList)
+          list.add(i.asInstanceOf[Patient])
+      } //JPA.em().createQuery("update Patient set firstName = 'null' where id = 1")
+    }
+    JPA.withTransaction(x)
+    asScalaBuffer(list)
+  }
+
 }

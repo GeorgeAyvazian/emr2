@@ -4,6 +4,7 @@ import models.Patient
 import play.api.data.Form
 import play.api.data.Forms.{mapping, nonEmptyText}
 import play.api.i18n.Messages
+import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller, Flash}
 
 object Patients extends Controller {
@@ -11,7 +12,7 @@ object Patients extends Controller {
   def list = Action { implicit request =>
     val patients = Patient.findAll
     Ok(views.html.list(patients))
-//    throw new Exception("a scandalous error")
+    //    throw new Exception("a scandalous error")
     Ok(views.html.index())
   }
 
@@ -28,6 +29,10 @@ object Patients extends Controller {
     )
       (Patient.apply)(Patient.unapply)
   )
+
+  def find(searchTerm: String) = Action {
+    Ok(Json.toJson(Patient.find(searchTerm)))
+  }
 
   def save = Action { implicit request =>
     val newPatientForm = patientForm.bindFromRequest()

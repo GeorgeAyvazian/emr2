@@ -1,9 +1,12 @@
-GET         /                    controllers.Application.index
-GET         /patients            controllers.Patients.list
-GET         /patients:pin        controllers.Patients.show(pin: Long)
-GET         /patients/new        controllers.Patients.newPatient
-GET         /barcode/:pin        controllers.Barcodes.barcode(pin: Long)
-GET         /schedules           controllers.Schedules.view
-POST        /patients            controllers.Patients.save
+GET         /javascriptRoutes        controllers.Application.javascriptRoutes
+GET         /                        controllers.Application.index
+GET         /findAllPatients/:term            controllers.Application.findAllPatients(term:String)
+GET         /patients                controllers.Patients.list
+GET         /patients:pin            controllers.Patients.show(pin: Long)
+GET         /patients/new            controllers.Patients.newPatient
+GET         /barcode/:pin            controllers.Barcodes.barcode(pin: Long)
+GET         /schedules               controllers.Schedules.view
+GET         /pfind/:term             controllers.Patients.find(term: String)
+POST        /patients                controllers.Patients.save
 
-GET         /assets/*file        controllers.Assets.at(path = "/public", file)
+GET         /assets/*file            controllers.Assets.at(path = "/public", file)
