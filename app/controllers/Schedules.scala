@@ -1,12 +1,12 @@
 package controllers
 
-import java.util
 import java.util.Date
 import javax.persistence.Query
 
-import models.{Patient, Appointment, Provider, Schedule}
+import models.{Appointment, Patient, Provider, Schedule}
+import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
-import play.db.jpa.{JPA, Transactional}
+import play.db.jpa.JPA
 import play.libs.F.Callback0
 
 import scala.collection.mutable
@@ -16,30 +16,32 @@ object Schedules extends Controller {
   val provider1 = Provider("Betty", "Black")
   val provider2 = Provider("John", "Huckstable")
 
+  implicit def appointmentOrdering: Ordering[Appointment] = Ordering.by[Appointment, Date]((appointment: Appointment) => appointment.date)
+
+  implicit def scheduleOrdering: Ordering[Schedule] = Ordering.by[Schedule, String]((schedule: Schedule) => schedule.provider.firstName)
+
   import models.Patient._
 
-  implicit def ordering: Ordering[Appointment] = Ordering.by[Appointment, Date]((appointment: Appointment) => appointment.date)
-
-  val schedules = mutable.Set[Schedule](
+  val schedules = mutable.SortedSet[Schedule](
     Schedule(provider1, mutable.SortedSet[Appointment](Appointment(new Date, patient1), Appointment(new Date, patient2))),
     Schedule(provider2, mutable.SortedSet[Appointment](Appointment(new Date, patient2)))
   )
 
-  @Transactional("defaultPersistenceUnit")
   def view = Action {
     def x: Callback0 = new Callback0 {
       override def invoke(): Unit = {
         val createQuery: Query = JPA.em().createQuery("from Patient")
-        val patient: Patient = new Patient
-        patient.firstName = "a"
-        patient.lastName = "b"
+        val patient: Patient = new Patient("a", "b")
         JPA.em().persist(patient)
-        val list: util.List[_] = createQuery.getResultList
-        println(list)
-      }//JPA.em().createQuery("update Patient set firstName = 'null' where id = 1")
+        import scala.collection.JavaConversions._
+        val list: mutable.Buffer[Patient] = asScalaBuffer(createQuery.getResultList).map(p => p.asInstanceOf[Patient])
+        println("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG")
+        list.map(p => p.id) foreach println
+        println("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG")
+      } //JPA.em().createQuery("update Patient set firstName = 'null' where id = 1")
     }
 
     JPA.withTransaction(x)
-    Ok(views.html.index())
+    Ok(Json.toJson(schedules))
   }
 }

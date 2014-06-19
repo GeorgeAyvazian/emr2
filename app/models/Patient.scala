@@ -2,37 +2,35 @@ package models
 
 import javax.persistence._
 
+import play.api.libs.json.Json
+
 @Entity
 @Table(name = "patients")
-class Patient() {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  var pin: Long = _
+case class Patient(firstName: String, lastName: String) {
+  private def this() = {
+    this("", "")
+  }
 
-  var firstName: String = _
-  var lastName: String = _
+  @Id
+  @GeneratedValue
+  var id: Long = _
 }
 
 object Patient {
+  val patient1 = Patient("John", "Doe")
+  val patient2 = Patient("Jane", "Fonda")
 
-  val patient1 = new Patient
-  patient1.firstName = "John"
-  patient1.lastName = "doe"
-  val patient2 = new Patient
-  patient2.firstName = "Jane"
-  patient2.lastName = "doe"
+  implicit def patientOrdering: Ordering[Patient] = Ordering.by[Patient, String]((patient: Patient) => patient.firstName + patient.lastName)
 
-  var patients = collection.mutable.Set[Patient](
-    patient1,
-    patient2
-  )
+  var patients = collection.mutable.SortedSet[Patient](patient1, patient2)
 
-  def findAll = patients.toList.sortBy(_.pin)
+  def findAll = patients.toList.sortBy(_.id)
 
-  def findByPin(pin: Long) = patients.find(_.pin == pin)
+  def findByPin(pin: Long) = patients.find(_.id == pin)
 
   def add(patient: Patient) {
     patients += patient
   }
 
+  implicit val writer = Json.writes[Patient]
 }

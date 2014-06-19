@@ -11,6 +11,7 @@ object Patients extends Controller {
   def list = Action { implicit request =>
     val patients = Patient.findAll
     Ok(views.html.list(patients))
+//    throw new Exception("a scandalous error")
     Ok(views.html.index())
   }
 
@@ -25,7 +26,7 @@ object Patients extends Controller {
       "firstName" -> nonEmptyText,
       "lastName" -> nonEmptyText
     )
-      ((_1, _2)=>new Patient)((p:Patient) => Option(p.firstName, p.lastName))
+      (Patient.apply)(Patient.unapply)
   )
 
   def save = Action { implicit request =>
@@ -37,8 +38,8 @@ object Patients extends Controller {
         flashing(Flash(form.data) + ("error" -> Messages("validation.errors")))
     }, { newPatient =>
       Patient.add(newPatient)
-      Redirect(routes.Patients.show(newPatient.pin)).
-        flashing("success" -> Messages("patients.new.success", newPatient.pin))
+      Redirect(routes.Patients.show(newPatient.id)).
+        flashing("success" -> Messages("patients.new.success", newPatient.id))
     })
   }
 

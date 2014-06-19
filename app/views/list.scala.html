@@ -4,8 +4,8 @@
         <dl class="products">
         @for(patient <- patients) {
             <dt>
-                <a href="@controllers.routes.Patients.show(patient.pin)">
-                @patient.pin
+                <a href="@controllers.routes.Patients.show(patient.id)">
+                @patient.id
                 </a>
             </dt>
             <dd>@patient.lastName, @patient.firstName</dd>

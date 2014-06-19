@@ -1,14 +1,14 @@
 @(patient: Patient)(implicit flash: Flash, lang: Lang)
 
-    @main(Messages("patients.details", patient.pin, flash)) {
+    @main(Messages("patients.details", patient.id, flash)) {
         <h2>
-            @tags.barcode(patient.pin)
-            @Messages("patients.details", patient.pin)
+            @tags.barcode(patient.id)
+            @Messages("patients.details", patient.id)
         </h2>
 
         <dl class="dl-horizontal">
             <dt>@Messages("pin"):</dt>
-            <dd>@patient.pin<dd>
+            <dd>@patient.id<dd>
 
             <dt>@Messages("name"):</dt>
             <dd>@patient.firstName<dd>
