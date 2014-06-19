@@ -18,25 +18,6 @@
         <link href='@routes.Assets.at("stylesheets/sb-admin.css")' rel="stylesheet">
         <script type="text/javascript" src='@controllers.routes.Application.javascriptRoutes()'></script>
     </head>
-    <script type="text/html" id="patient-center-template">
-        <div id="patient-center">
-            <div class="form-group">
-                <select>
-                    <option>Mr.</option>
-                    <option>Mrs.</option>
-                    <option>Ms.</option>
-                </select>
-                <input type="text" class="form-control" placeholder="First Name"/>
-                <input type="text" class="form-control" placeholder="Last Name"/>
-            </div>
-            <div id="dp3" class="input-append date" data-date-format="dd-mm-yyyy" data-date="12-02-2012">
-                <input class="span2" type="text" readonly="" value="12-02-2012" size="16"/>
-                    <span class="add-on">
-                        <i class="icon-calendar"></i>
-                    </span>
-            </div>
-        </div>
-    </script>
     <script type="text/html" id="email-center-template">
         <div id="email-center">
             <div class="form-group">
@@ -46,6 +27,8 @@
     </script>
     <body>
         <div id="wrapper">
+            <!--use for debugging-->
+            <!--<pre id="debug" data-bind="text: ko.toJSON($data, null, 2)"></pre>-->
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom : 0">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -404,9 +387,9 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu pull-right" role="menu">
-                                            <li><a id="addPatient" data-bind="click: fetchTemplate">Add Patient</a>
+                                            <li><a id="addPatient"  data-target="#myModal" data-toggle="modal">Add Patient</a>
                                             </li>
-                                            <li><a data-bind="click: fetchTemplate">Another action</a>
+                                            <li><a>Another action</a> <!--data-bind="click: fetchTemplate"-->
                                             </li>
                                             <li><a href="#">Something else here</a>
                                             </li>
@@ -418,7 +401,7 @@
                                 </div>
                             </div>
                                 <!-- /.panel-heading -->
-                            <div class="panel-body" data-bind="template: theTemplate">
+                            <div class="panel-body"><!--data-bind="template: theTemplate"-->
 
                             </div>
                             <!-- /.panel-body -->
@@ -858,7 +841,41 @@
         <script src='@routes.Assets.at("javascripts/demo/dashboard-demo.js")'></script>
         <script src='@routes.Assets.at("javascripts/knockout-3.1.0.js")'></script>
         <script src="http://eternicode.github.io/bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-        <script src='@routes.Assets.at("javascripts/myjs.js")'></script>
-    </body>
 
+        <div id="myModal" class="modal fade" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 id="myModalLabel" class="modal-title">New Patient</h4>
+                    </div>
+                    <div class="modal-body"> <div id="patient-center">
+                        <div class="form-group">
+                            <div class="form-inline">
+                                <select class="form-control" style="height: 30px">
+                                    <option>Mr.</option>
+                                    <option>Mrs.</option>
+                                    <option>Ms.</option>
+                                </select>
+                                <div class="form-group" data-bind="attr: {class: errorCheck}">
+                                    <input type="text" class="form-control" placeholder="First Name" style="height: 30px" data-bind="event: {focus: highlight}"/>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Last Name" style="height: 30px"/>
+                            </div>
+                        </div>
+                        <div id="dp3" class="input-append date" data-date-format="dd-mm-yyyy" data-date="12-02-2012">
+                            <input class="span2" type="text" readonly="" value="12-02-2012" size="16"/>
+                            <span class="add-on">
+                                <i class="icon-calendar"></i>
+                            </span>
+                        </div>
+                    </div></div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                        <button class="btn btn-primary" type="button">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src='@routes.Assets.at("javascripts/myjs.js")'></script>
 </html>
