@@ -9,10 +9,7 @@
             <!-- Core CSS - Include with every page -->
         <link href='@routes.Assets.at("stylesheets/bootstrap.min.css")' rel="stylesheet">
         <link href='@routes.Assets.at("font-awesome/css/font-awesome.css")' rel="stylesheet">
-
-            <!-- Page-Level Plugin CSS - Dashboard -->
-        <link href='@routes.Assets.at("stylesheets/plugins/morris/morris-0.4.3.min.css")' rel="stylesheet">
-        <link href='@routes.Assets.at("stylesheets/plugins/timeline/timeline.css")' rel="stylesheet">
+        <link href='@routes.Assets.at("stylesheets/calendar.css")' rel="stylesheet">
 
             <!-- SB Admin CSS - Include with every page -->
         <link href='@routes.Assets.at("stylesheets/sb-admin.css")' rel="stylesheet">
@@ -387,7 +384,7 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu pull-right" role="menu">
-                                            <li><a id="addPatient"  data-target="#myModal" data-toggle="modal">Add Patient</a>
+                                            <li><a id="addPatient" href="javascript:void(0))" data-target="#myModal" data-toggle="modal">Add Patient</a>
                                             </li>
                                             <li><a>Another action</a> <!--data-bind="click: fetchTemplate"-->
                                             </li>
@@ -398,6 +395,7 @@
                                             </li>
                                         </ul>
                                     </div>
+                                    <div id="calendar"></div>
                                 </div>
                             </div>
                                 <!-- /.panel-heading -->
@@ -825,57 +823,17 @@
         </div>
             <!-- /#wrapper -->
 
-            <!-- Core Scripts - Include with every page -->
-        <script src='@routes.Assets.at("javascripts/jquery-1.10.2.js")'></script>
-        <script src='@routes.Assets.at("javascripts/bootstrap.min.js")'></script>
-        <script src='@routes.Assets.at("javascripts/plugins/metisMenu/jquery.metisMenu.js")'></script>
 
-            <!-- Page-Level Plugin Scripts - Dashboard -->
-        <script src='@routes.Assets.at("javascripts/plugins/morris/raphael-2.1.0.min.js")'></script>
-        <script src='@routes.Assets.at("javascripts/plugins/morris/morris.js")'></script>
 
-            <!-- SB Admin Scripts - Include with every page -->
-        <script src='@routes.Assets.at("javascripts/sb-admin.js")'></script>
-
-            <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
-        <script src='@routes.Assets.at("javascripts/demo/dashboard-demo.js")'></script>
-        <script src='@routes.Assets.at("javascripts/knockout-3.1.0.js")'></script>
-        <script src="http://eternicode.github.io/bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-
-        <div id="myModal" class="modal fade" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 id="myModalLabel" class="modal-title">New Patient</h4>
-                    </div>
-                    <div class="modal-body"> <div id="patient-center">
-                        <div class="form-group">
-                            <div class="form-inline">
-                                <select class="form-control" style="height: 30px">
-                                    <option>Mr.</option>
-                                    <option>Mrs.</option>
-                                    <option>Ms.</option>
-                                </select>
-                                <div class="form-group" data-bind="attr: {class: errorCheck}">
-                                    <input type="text" class="form-control" placeholder="First Name" style="height: 30px" data-bind="event: {focus: highlight}"/>
-                                </div>
-                                <input type="text" class="form-control" placeholder="Last Name" style="height: 30px"/>
-                            </div>
-                        </div>
-                        <div id="dp3" class="input-append date" data-date-format="dd-mm-yyyy" data-date="12-02-2012">
-                            <input class="span2" type="text" readonly="" value="12-02-2012" size="16"/>
-                            <span class="add-on">
-                                <i class="icon-calendar"></i>
-                            </span>
-                        </div>
-                    </div></div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
-                        <button class="btn btn-primary" type="button">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @patients.addPatient()
     </body>
+    <script src='@routes.Assets.at("javascripts/jquery-1.10.2.js")'></script>
+    <script src='@routes.Assets.at("javascripts/underscore.js")'></script>
+    <script src='@routes.Assets.at("javascripts/calendar.js")'></script>
+    <script src='@routes.Assets.at("javascripts/bootstrap.min.js")'></script>
+    <script src='@routes.Assets.at("javascripts/plugins/metisMenu/jquery.metisMenu.js")'></script>
+    <script src='@routes.Assets.at("javascripts/sb-admin.js")'></script>
+    <script src='@routes.Assets.at("javascripts/knockout-3.1.0.js")'></script>
+
     <script src='@routes.Assets.at("javascripts/myjs.js")'></script>
 </html>

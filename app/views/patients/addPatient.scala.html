@@ -1,0 +1,49 @@
+@()
+<div id="myModal" class="modal fade" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="myModalLabel" class="modal-title">New Patient</h5>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-pills">
+                    <li class="active">
+                        <a data-toggle="tab" href="#home-pills">Demographics</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#profile-pills">Contact</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="home-pills" class="tab-pane fade in active">
+                        <div class="form-group">
+                            <div class="form-inline">
+                                <select class="form-control" style="height : 30px">
+                                    <option>Mr.</option>
+                                    <option>Mrs.</option>
+                                    <option>Ms.</option>
+                                </select>
+                                <div class="form-group" data-bind="attr: {class: errorCheck}">
+                                    <input type="text" class="form-control" placeholder="First Name" style="height : 30px" data-bind="event: {focus: highlight}"/>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Last Name" style="height : 30px"/>
+                            </div>
+                        </div>
+                        <div id="dp3" class="input-append date" data-date-format="dd-mm-yyyy" data-date="12-02-2012">
+                            <input class="span2" type="text" readonly="" value="12-02-2012" size="16"/>
+                            <span class="add-on">
+                                <i class="icon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div id="profile-pills" class="tab-pane fade">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Cancel</button>
+                    <button class="btn btn-primary" type="button">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

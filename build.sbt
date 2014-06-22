@@ -10,7 +10,9 @@ libraryDependencies := Seq[ModuleID](
   "postgresql" % "postgresql" % "9.1-901.jdbc4",
   "org.hibernate" % "hibernate-entitymanager" % "4.3.0.Final", //,
   "org.webjars" %% "webjars-play" % "2.2.1",
-  "org.webjars" % "knockout" % "2.3.0"
+  "org.webjars" % "knockout" % "2.3.0",
+  "org.webjars" % "angularjs" % "1.3.0-beta.2",
+  "org.webjars" % "requirejs" % "2.1.11-1"
   //  "org.apache.tomcat.embed" % "tomcat-embed-core" % "7.0.53" % "container",
   //  "org.apache.tomcat.embed" % "tomcat-embed-logging-juli" % "7.0.53" % "container",
   //  "org.apache.tomcat.embed" % "tomcat-embed-jasper" % "7.0.53" % "container"
