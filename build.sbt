@@ -1,5 +1,3 @@
-
-
 name := "untitled1"
 
 version := "1.0"
@@ -19,5 +17,7 @@ libraryDependencies := Seq[ModuleID](
 )
 
 scalacOptions := Seq[String]("-feature", "-language:implicitConversions")
+
+closureCompilerOptions += "advancedOptimizations"
 
 playScalaSettings

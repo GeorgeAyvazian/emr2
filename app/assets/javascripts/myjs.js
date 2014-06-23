@@ -1,11 +1,3 @@
-var calendar = $('#calendar').calendar(
-    {
-        tmpl_path: '/assets/tmpls/',
-        events_source: function () {
-            return [];
-        }
-    }
-);
 var myViewModel = {
     'firstName': ko.observable('x'),
     'errorCheck': ko.observable('form-group'),
