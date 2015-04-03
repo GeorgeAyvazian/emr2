@@ -14,6 +14,7 @@ case class Appointment(date: Date, @(ManyToOne@field) patient: Patient) {
   @GeneratedValue
   var id: Long = _
 }
+}
 
 object Appointment {
   implicit val writer = Json.writes[Appointment]
